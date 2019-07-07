@@ -16,7 +16,7 @@ function refreshMap() {
 
 function setMapInterval() {
     if (!mapRefreshState)
-        int = setInterval(refreshMap, 200);
+        int = setInterval(refreshMap, 2);
     mapRefreshState = true;
 }
 

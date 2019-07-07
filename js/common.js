@@ -1,49 +1,59 @@
 /* Refresh map - controls */
 
-var mapRefreshState = false;
+let mapRefreshState = false;
 
-function refreshMap(){
-      world.turn();
-      document.getElementById("world").innerHTML = world
+function refreshMap() {
+    world.turn();
+    document.getElementById("world").innerHTML = world
         .toString()
-        .replace( new RegExp(" ", "g"), "🌫")
-        .replace( new RegExp("#", "g"), "⬛️")
-        .replace( new RegExp("\\*", "g"), "🌿")
-        .replace( new RegExp("o", "g"), "🐰")
-        .replace( new RegExp("Ö", "g"), "🐍");
+        .replace(new RegExp(" ", "g"), "🌫")
+        .replace(new RegExp("#", "g"), "⬛️")
+        .replace(new RegExp("\\*", "g"), "🌿")
+        .replace(new RegExp("o", "g"), "🐰")
+        .replace(new RegExp("K", "g"), "🦘")
+        .replace(new RegExp("Ö", "g"), "🐍");
 }
 
-function setMapInterval(){
-      if(!mapRefreshState)
-            int = setInterval(refreshMap,200);
-            mapRefreshState = true;
+function setMapInterval() {
+    if (!mapRefreshState)
+        int = setInterval(refreshMap, 200);
+    mapRefreshState = true;
 }
 
 setMapInterval();
 
 /*Start world*/
 
-var world = new LifelikeWorld(
-  ["#####################################################################",
-   "#                 ####         ****                          *  *  ##",
-   "#   *  Ö  ##                 ########       oo                     ##",
-   "#   *    ##        o o                 ****                ###     *#",
-   "#       ##*                        ##########         Ö      ##*   *#",
-   "#      ##***  *         ****                                 ##*  **#",
-   "#* **  #  *  ***      #########       Ö                       ### **#",
-   "#* **  #      *               #   *         ##         Ö          **#",
-   "#     ##              #   o   #  ***         ###              #    ##",
-   "#*            Ö       #       #   *        o  ##             ###    #",
-   "#*                    #  ######                             ###     #",
-   "###          ****          ***                                      #",
-   "#       o                                  o       # ###      **    #",
-   "#   *     ##  ##  ##  ##               ###         #########  ***   #",
-   "#   **         #              *       #####  o     *****####        #",
-   "##  **  o   o  #  #    ***  ***   Ö    ###              ****       o#",
-   "###               #   *****                                         #",
-   "#####################################################################"],
-  {"#": Wall,
-   "o": SmartPlantEater,
-   "Ö": Tiger,
-   "*": Plant}
+let world = new LifelikeWorld(
+       ["#####################################################################",
+        "#                  ***         ****                          *****#*#",
+        "#   *Ö ##            ####       ########      ########   o   ****#*##",
+        "#   *  ##    o        ##        ########    o ##    ##   **  K ***#*#",
+        "#      ##  *          ##        ##            ##         Ö     *****#",
+        "#      ##  ***  * K   ## **     #####         #####            *****#",
+        "#* **  ##   *  ***    ##        #####   Ö     ##                 ***#",
+        "#* **  ######## *     ##        ##          * ##    ## Ö          **#",
+        "#      ########      ####       ## o     ***  ########              #",
+        "#*            Ö                   *        o                        #",
+        "#*          ##      ##  ***                   ##     ##         K   #",
+        "#######     ##      ##  ***          ***         ##                 #",
+        "#****##   o ##      ##                           ## o         **    #",
+        "#****##         ##      ##                ***##       ##            #",
+        "#****##*        ##      ##   K      *       o ### **### ***         #",
+        "##***##*  o   o ## ***  ##   ***  ***           #####     ****     o#",
+        "##***      ***     ***      *****            **        **           #",
+        "#***  ##            ##       ##       #####      ##  Ö    #####     #",
+        "#**    ##    ##    ##      ##  ##     ## * ##    ##       ## * ##   #",
+        "#*     ##    ##    ##  K  ## ** ##    ## * ##    ##       ## *  ##  #",
+        "#  K     ##  ##  ##       ##   ##     ######     ##   ##  ##   ##   #",
+        "#         ########    **   ####   **  ##   ##    ######   ######    #",
+        "#                     **          **                                #",
+        "#####################################################################"],
+    {
+        "#": Wall,
+        "o": Rabbit,
+        "K": Kangoo,
+        "Ö": Snake,
+        "*": Plant
+    }
 );

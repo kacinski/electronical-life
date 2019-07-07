@@ -17,7 +17,7 @@ function WallFollower(){
 }
 
 WallFollower.prototype.act = function(view){
-      var start = this.dir;
+      let start = this.dir;
       if(view.look(dirPlus(this.dir, -3)) != " ")
             start = this.dir = dirPlus(this.dir, -2);
       while(view.look(this.dir) != " "){
@@ -29,7 +29,7 @@ WallFollower.prototype.act = function(view){
 }
 
 function dirPlus(dir, n){
-      var index = directionNames.indexOf(dir);
+      let index = directionNames.indexOf(dir);
       return directionNames[(index + n + 8) % 8];
 }
 
@@ -43,8 +43,8 @@ function Plant(){
   this.energy = 3 + Math.random() * 4;
 }
 Plant.prototype.act = function(context){
-  if(this.energy > 20){
-    var space = context.find(" ");
+  if(this.energy > 15){
+    let space = context.find(" ");
     if(space)
       return {type: "reproduce", direction: space};
   }
@@ -53,38 +53,37 @@ Plant.prototype.act = function(context){
   }
 };
 
-//PlantEater
-function PlantEater(){
+//Kangoo
+function Kangoo(){
   this.energy = 20;
 }
-PlantEater.prototype.act = function(context){
-  var space = context.find(" ");
+Kangoo.prototype.act = function(context){
+  let space = context.find(" ");
   if(this.energy > 60 && space)
     return {type: "reproduce", direction: space};
 
-  var plant = context.find("*");
-
-  if(plant)
-    return {type:"eat", direction: plant};
+  let plants = context.findAll("*");
+  if(plants.length)
+    return {type: "eat", direction: randomElement(plants)};
 
   if(space)
     return {type: "move", direction: space}
 };
 
-//SmartPlantEater
-function SmartPlantEater(){
+//Rabbit
+function Rabbit(){
   this.energy = 30;
   this.direction = "s";
 }
-SmartPlantEater.prototype.act = function(context){
-  var space = context.find(" ");
+Rabbit.prototype.act = function(context){
+  let space = context.find(" ");
 
   if(this.energy > 100 && space)
     return {type: "reproduce", direction: space};
 
-  var plants = context.findAll("*");
-  if(plants.length > 1)
-    return {type: "eat", direction: randomElement(plants)}
+  let plants = context.findAll("*");
+  if(plants.length)
+    return {type: "eat", direction: randomElement(plants)};
 
   if (context.look(this.direction) != " ")
     this.direction = context.find(" ") || "s";
@@ -92,21 +91,25 @@ SmartPlantEater.prototype.act = function(context){
   return {type: "move", direction: this.direction} 
 }
 
-//Tiger
-function Tiger(){
-  this.energy = 40;
+//Snake
+function Snake(){
+  this.energy = 70;
   this.direction = "s";
   this.totalFood = [];
 }
-Tiger.prototype.act = function(context){
-  var space = context.find(" ");
+Snake.prototype.act = function(context){
+  let space = context.find(" ");
 
-  var food = context.findAll("o");
-  this.totalFood.push(food.length);
+  let foodRabbit = context.findAll( "o") ;
+  this.totalFood.push(foodRabbit.length);
 
-  var foodInTurns = this.totalFood.reduce(function(a, b){
+  let foodKangoo = context.findAll( "K") ;
+  this.totalFood.push(foodKangoo.length);
+
+
+  let foodInTurns = (this.totalFood.reduce(function(a, b){
     return a + b;
-  }) / this.totalFood.length;
+  }) / this.totalFood.length);
 
   if(this.totalFood.length > 6)
     this.totalFood.shift();
@@ -115,8 +118,12 @@ Tiger.prototype.act = function(context){
     return {type:"reproduce", direction: space}
   }
 
-  if(food.length && foodInTurns > 0.25){
-    return {type: "eat", direction: randomElement(food)}
+  if(foodRabbit.length){
+    return {type: "eat", direction: randomElement(foodRabbit)}
+  }
+
+  if(foodKangoo.length){
+    return {type: "eat", direction: randomElement(foodKangoo)}
   }
 
   if(context.look(this.direction) != " ")
@@ -126,7 +133,7 @@ Tiger.prototype.act = function(context){
 }
 
 //Action handler
-var actionTypes = Object.create(null);
+let actionTypes = Object.create(null);
 
 actionTypes.grow = function(critter){
   critter.energy += 0.5;
@@ -134,7 +141,7 @@ actionTypes.grow = function(critter){
 };
 
 actionTypes.move = function(critter, vector, action){
-  var dest = this.checkDestination(action, vector);
+  let dest = this.checkDestination(action, vector);
   if(dest == null ||
     critter.energy <= 1 ||
     this.grid.get(dest) != null)
@@ -147,8 +154,8 @@ actionTypes.move = function(critter, vector, action){
 };
 
 actionTypes.eat = function(critter, vector, action) {
-  var dest = this.checkDestination(action, vector);
-  var atDest = dest != null && this.grid.get(dest);
+  let dest = this.checkDestination(action, vector);
+  let atDest = dest != null && this.grid.get(dest);
   if (!atDest || atDest.energy == null)
     return false;
   critter.energy += atDest.energy;
@@ -157,8 +164,8 @@ actionTypes.eat = function(critter, vector, action) {
 };
 
 actionTypes.reproduce = function(critter, vector, action){
-  var baby = elementFromChar(this.legend, critter.originChar);
-  var dest = this.checkDestination(action, vector);
+  let baby = elementFromChar(this.legend, critter.originChar);
+  let dest = this.checkDestination(action, vector);
 
   if(dest == null ||
     critter.energy <= 2 * baby.energy ||

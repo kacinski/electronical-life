@@ -38,20 +38,32 @@ function dirPlus(dir, n){
 
 //Lifelike World
 
+
 //Plant
+
 function Plant(){
+
   this.energy = 3 + Math.random() * 4;
 }
 Plant.prototype.act = function(context){
-  if(this.energy > 15){
+
+  if(this.energy > 15) {
     let space = context.find(" ");
-    if(space)
+    if (space) {
       return {type: "reproduce", direction: space};
+    }
   }
+
   if(this.energy < 20){
     return {type: "grow"};
   }
 };
+
+
+// function Count(element, quantity){
+//
+//   return quantity;
+// }
 
 //Kangoo
 function Kangoo(){

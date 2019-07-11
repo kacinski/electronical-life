@@ -26,6 +26,13 @@
 		<button onclick="clearInterval(int); mapRefreshState = false;">Stop</button>
 		<button onclick="refreshMap();">Turn</button>
 	</div>
+	<pre>
+		<div><b style = color:red>  Steps =</b><b id="steps"></b>
+			<b style = color:orange>Kangoo =</b><b id="Kangaroo"></b><b style = color:greenyellow>  Plant =</b><b id="Plant"></b><b style = color:darkgreen>   Snake =</b><b id="Snake"></b><b style= color:dimgrey>   Rabbit =</b><b id="Rabbit"></b>
+		</div>
+		<div><b style = color:orange>Max Kangoo =</b><b id="maxKangaroo"></b><b style = color:greenyellow>  Max Plant =</b><b id="maxPlant"></b><b style = color:darkgreen>   Max Snake =</b><b id="maxSnake"></b><b style= color:dimgrey>   Max Rabbit =</b><b id="maxRabbit"></b>
+		</div>
+	</pre>
     <pre>
     	<div id="world"></div>
     </pre>
@@ -38,6 +45,7 @@
     		<li>* - Plant (reproduce / give energy)</li>
     	</ul>
     </div>
+
     <script type="text/javascript" src="js/world.js"></script>
     <script type="text/javascript" src="js/entities.js"></script>
     <script type="text/javascript" src="js/common.js"></script>

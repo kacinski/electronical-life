@@ -22,13 +22,16 @@
 		<p>Simple project for <a href="http://eloquentjavascript.net/">Eloquent Javascript book</a> - Chapter 7</p>
 		<p>Made by <a href="https://twitter.com/arigers">@arigers</a></p>
 
-		<button onclick="setMapInterval();">Run</button>
+		<button onclick="new Game(map, legend);">New game</button>
 		<button onclick="clearInterval(int); mapRefreshState = false;">Stop</button>
-		<button onclick="refreshMap();">Turn</button>
+		<button onclick="SetMapInterval();">Resume</button>
+		<button onclick="RefreshMap();">Turn</button>
+
+
 	</div>
 	<pre>
-		<div><b style = color:red>  Steps =</b><b id="steps"></b>
-			<b style = color:orange>Kangoo =</b><b id="Kangaroo"></b><b style = color:greenyellow>  Plant =</b><b id="Plant"></b><b style = color:darkgreen>   Snake =</b><b id="Snake"></b><b style= color:dimgrey>   Rabbit =</b><b id="Rabbit"></b>
+		<div><b style = color:red>  Steps =</b><b id="steps"></b></div>
+		<div><b style = color:orange>    Kangoo =</b><b id="Kangaroo"></b><b style = color:greenyellow>     Plant =</b><b id="Plant"></b><b style = color:darkgreen>    Snake =</b><b id="Snake"></b><b style= color:dimgrey>          Rabbit =</b><b id="Rabbit"></b>
 		</div>
 		<div><b style = color:orange>Max Kangoo =</b><b id="maxKangaroo"></b><b style = color:greenyellow>  Max Plant =</b><b id="maxPlant"></b><b style = color:darkgreen>   Max Snake =</b><b id="maxSnake"></b><b style= color:dimgrey>   Max Rabbit =</b><b id="maxRabbit"></b>
 		</div>

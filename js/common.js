@@ -1,22 +1,7 @@
 /* Refresh map - controls */
 
-let mapRefreshState = false;
-let steps = 0;
-let arrayOfLife = [];
-let stopCountKangaroo = true;
-let stopCountSnake = true;
-let stopCountRabbit = true;
-let stopCountPlate = true;
-let max = 0;
-let res;
-let nature = {
-    "kangaroo": 0,
-    "snake": 0,
-    "rabbit": 0,
-    "plant": 0
-};
 
-function refreshMap() {
+function RefreshMap() {
 
     ++steps;
     world.turn();
@@ -49,28 +34,28 @@ function refreshMap() {
 
         if (result != null) {
             res = result.length;
-            if(id === "maxKangaroo"){
-                if(res > nature.kangaroo){
+            if (id === "maxKangaroo") {
+                if (res > nature.kangaroo) {
                     nature.kangaroo = res;
                 }
-                    document.getElementById(id).innerHTML = nature.kangaroo.toString();
+                document.getElementById(id).innerHTML = nature.kangaroo.toString();
 
             }
-            if(id === "maxSnake"){
-                if(res > nature.snake){
+            if (id === "maxSnake") {
+                if (res > nature.snake) {
                     nature.snake = res;
                 }
                 document.getElementById(id).innerHTML = nature.snake.toString();
             }
-            if(id === "maxRabbit"){
-                if(res > nature.rabbit){
+            if (id === "maxRabbit") {
+                if (res > nature.rabbit) {
                     nature.rabbit = res;
                 }
                 document.getElementById(id).innerHTML = nature.rabbit.toString();
 
             }
-            if(id === "maxPlant"){
-                if(res > nature.plant){
+            if (id === "maxPlant") {
+                if (res > nature.plant) {
                     nature.plant = res;
                 }
                 document.getElementById(id).innerHTML = nature.plant.toString();
@@ -129,23 +114,21 @@ function refreshMap() {
 ;
 
 
-function setMapInterval() {
+function SetMapInterval() {
 
     if (!mapRefreshState) {
 
-        int = setInterval(refreshMap, 20);
+        int = setInterval(RefreshMap, 2);
 
     }
 
     mapRefreshState = true;
-}
-
-setMapInterval();
+};
 
 
 /*Start world*/
 
-let world = new LifelikeWorld(
+map =
        ["#####################################################################",
         "#                  ***         ****                          *****#*#",
         "#   *Ö ##            ####       ########      ########   o   ****#*##",
@@ -169,15 +152,37 @@ let world = new LifelikeWorld(
         "#  K     ##  ##  ##       ##   ##     ######     ##   ##  ##   ##   #",
         "#         ########    **   ####   **  ##   ##    ######   ######    #",
         "#                     **          **                                #",
-        "#####################################################################"],
+        "#####################################################################"];
+
+legend =
     {
         "#": Wall,
         "o": Rabbit,
         "K": Kangoo,
         "Ö": Snake,
         "*": Plant
-    }
-);
+    };
+
+let world = new LifelikeWorld(map, legend);
 
 
+function Game(map, legend) {
 
+    mapRefreshState = false;
+    steps = 0;
+    arrayOfLife = [];
+    stopCountKangaroo = true;
+    stopCountSnake = true;
+    stopCountRabbit = true;
+    stopCountPlate = true;
+    res = 0;
+    nature = {
+        "kangaroo": 0,
+        "snake": 0,
+        "rabbit": 0,
+        "plant": 0
+    };
+    world = new LifelikeWorld(map, legend);
+
+    SetMapInterval();
+};

@@ -1,3 +1,9 @@
+const winners = {
+    "plant": 0,
+    "animals": 0
+};
+let games = 0;
+
 /* Refresh map - controls */
 
 
@@ -106,9 +112,32 @@ function RefreshMap() {
     }
     new MaxCount("maxPlant", plant);
 
-    if (arrayOfLife.length < 3)
-        document.getElementById("steps").innerHTML = steps.toString();
 
+    if (snake === null && rabbit === null && kangaroo === null) {
+        winners.plant = winners.plant + 1;
+        games = games + 1;
+        clearInterval(int);
+        mapRefreshState = false;
+
+    } else {
+        document.getElementById("steps").innerHTML = steps.toString();
+    }
+
+    if (plant === null) {
+        winners.animals = winners.animals + 1;
+        games = games + 1;
+        clearInterval(int);
+        mapRefreshState = false;
+
+    } else {
+        document.getElementById("steps").innerHTML = steps.toString();
+    }
+
+    let pl = winners.plant;
+    let ani = winners.animals;
+    document.getElementById("winnerPlant").innerHTML = pl.toString();
+    document.getElementById("winnerAnimals").innerHTML = ani.toString();
+    document.getElementById("games").innerHTML = games.toString();
 
 }
 ;
@@ -129,7 +158,7 @@ function SetMapInterval() {
 /*Start world*/
 
 map =
-       ["#####################################################################",
+    ["#####################################################################",
         "#                  ***         ****                          *****#*#",
         "#   *Ö ##            ####       ########      ########   o   ****#*##",
         "#   *  ##    o        ##        ########    o ##    ##   **  K ***#*#",
@@ -169,6 +198,7 @@ let world = new LifelikeWorld(map, legend);
 function Game(map, legend) {
 
     mapRefreshState = false;
+
     steps = 0;
     arrayOfLife = [];
     stopCountKangaroo = true;
@@ -185,4 +215,6 @@ function Game(map, legend) {
     world = new LifelikeWorld(map, legend);
 
     SetMapInterval();
-};
+}
+
+

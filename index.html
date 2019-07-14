@@ -19,9 +19,6 @@
 <body>
 	<div class="info">
 		<h1>Electronic life</h1>
-		<p>Simple project for <a href="http://eloquentjavascript.net/">Eloquent Javascript book</a> - Chapter 7</p>
-		<p>Made by <a href="https://twitter.com/arigers">@arigers</a></p>
-
 		<button onclick="new Game(map, legend);">New game</button>
 		<button onclick="clearInterval(int); mapRefreshState = false;">Stop</button>
 		<button onclick="SetMapInterval();">Resume</button>
@@ -30,6 +27,10 @@
 
 	</div>
 	<pre>
+		<div><h1>Winners:</h1>
+		Plant: <b id = "winnerPlant"></b>        Games: <b id="games"></b>
+		Animals: <b id = "winnerAnimals"></b>
+		</div>
 		<div><b style = color:red>  Steps =</b><b id="steps"></b></div>
 		<div><b style = color:orange>    Kangoo =</b><b id="Kangaroo"></b><b style = color:greenyellow>     Plant =</b><b id="Plant"></b><b style = color:darkgreen>    Snake =</b><b id="Snake"></b><b style= color:dimgrey>          Rabbit =</b><b id="Rabbit"></b>
 		</div>

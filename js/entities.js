@@ -105,7 +105,7 @@ Rabbit.prototype.act = function(context){
 
 //Snake
 function Snake(){
-  this.energy = 70;
+  this.energy = 60;
   this.direction = "s";
   this.totalFood = [];
 }

@@ -19,10 +19,10 @@
 <body>
 	<div class="info">
 		<h1>Electronic life</h1>
-		<button onclick="new Game(map, legend);">New game</button>
+		<button onclick="new Game(map, legend)">New game</button>
 		<button onclick="clearInterval(int); mapRefreshState = false;">Stop</button>
 		<button onclick="SetMapInterval();">Resume</button>
-		<button onclick="RefreshMap();">Turn</button>
+		<button onclick="OneStep();">Turn</button>
 
 
 	</div>
@@ -42,11 +42,11 @@
     </pre>
     <div>
     	<ul>
-    		<li># - Wall</li>
-    		<li>o - Rabbit (eat plants)</li>
-			<li>K - Kangoo (eat plants)</li>
-    		<li>Ö - Snake (eat the plant-eaters)</li>
-    		<li>* - Plant (reproduce / give energy)</li>
+    		<li>⬛ - Wall</li>
+    		<li>🐰 - Rabbit (eat plants)</li>
+			<li>🦘 - Kangoo (eat plants)</li>
+    		<li>🐍 - Snake (eat the plant-eaters)</li>
+    		<li>🌽 - Plant (reproduce / give energy)</li>
     	</ul>
     </div>
 

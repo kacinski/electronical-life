@@ -7,8 +7,8 @@ let games = 0;
 /* Refresh map - controls */
 
 
-function RefreshMap() {
-
+function RefreshMap(index) {
+   this.index = index;
     ++steps;
     world.turn();
     document.getElementById("world").innerHTML = world
@@ -74,11 +74,6 @@ function RefreshMap() {
         .toString()
         .match(/K/g);
     new Count("Kangaroo", kangaroo);
-    if (kangaroo === null && stopCountKangaroo) {
-        arrayOfLife.push(arrayOfLife.length + 1);
-        stopCountKangaroo = false;
-    }
-
     new MaxCount("maxKangaroo", kangaroo);
 
 
@@ -86,38 +81,36 @@ function RefreshMap() {
         .toString()
         .match(/Ö/g);
     new Count("Snake", snake);
-    if (snake === null && stopCountSnake) {
-        arrayOfLife.push(arrayOfLife.length + 1);
-        stopCountSnake = false;
-    }
     new MaxCount("maxSnake", snake);
 
     let rabbit = world
         .toString()
         .match(/o/g);
     new Count("Rabbit", rabbit);
-    if (rabbit === null && stopCountRabbit) {
-        arrayOfLife.push(arrayOfLife.length + 1);
-        stopCountRabbit = false;
-    }
     new MaxCount("maxRabbit", rabbit);
 
     let plant = world
         .toString()
         .match(/\*/g);
     new Count("Plant", plant);
-    if (plant === null && stopCountPlate) {
-        arrayOfLife.push(arrayOfLife.length + 1);
-        stopCountPlate = false;
-    }
     new MaxCount("maxPlant", plant);
 
 
-    if (snake === null && rabbit === null && kangaroo === null) {
+
+
+    if (rabbit === null && kangaroo === null) {
         winners.plant = winners.plant + 1;
         games = games + 1;
         clearInterval(int);
-        mapRefreshState = false;
+        let plantWin = confirm(`The game ended in victory of Plant! With a score: Plant: ${winners.plant} VS Animals: ${winners.animals}.
+     Start new game?`);
+
+        if(plantWin === true){
+            new Game(map, legend);
+        }
+        if(confirm === false){
+            window.location.reload();
+        }
 
     } else {
         document.getElementById("steps").innerHTML = steps.toString();
@@ -127,20 +120,27 @@ function RefreshMap() {
         winners.animals = winners.animals + 1;
         games = games + 1;
         clearInterval(int);
-        mapRefreshState = false;
+        let animalsWin = confirm(`The game ended in victory of Animals! With a score: Plant: ${winners.plant} VS Animals: ${winners.animals}.
+     Start new game?`);
+        if(animalsWin){
+            new Game(map, legend);
+        }else{
+            window.location.reload();
+        }
+
+
 
     } else {
         document.getElementById("steps").innerHTML = steps.toString();
     }
 
-    let pl = winners.plant;
-    let ani = winners.animals;
-    document.getElementById("winnerPlant").innerHTML = pl.toString();
-    document.getElementById("winnerAnimals").innerHTML = ani.toString();
-    document.getElementById("games").innerHTML = games.toString();
-
+    if(!this.index) {
+        document.getElementById("winnerPlant").innerHTML = winners.plant.toString();
+        document.getElementById("winnerAnimals").innerHTML = winners.animals.toString();
+        document.getElementById("games").innerHTML = games.toString();
+    }
 }
-;
+
 
 
 function SetMapInterval() {
@@ -198,13 +198,7 @@ let world = new LifelikeWorld(map, legend);
 function Game(map, legend) {
 
     mapRefreshState = false;
-
     steps = 0;
-    arrayOfLife = [];
-    stopCountKangaroo = true;
-    stopCountSnake = true;
-    stopCountRabbit = true;
-    stopCountPlate = true;
     res = 0;
     nature = {
         "kangaroo": 0,
@@ -215,6 +209,11 @@ function Game(map, legend) {
     world = new LifelikeWorld(map, legend);
 
     SetMapInterval();
+
+}
+
+function OneStep (){
+   new RefreshMap(true);
 }
 
 

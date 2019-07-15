@@ -98,7 +98,7 @@ function RefreshMap(index) {
 
 
 
-    if (rabbit === null && kangaroo === null) {
+    if (rabbit === null && kangaroo === null && snake === null) {
         winners.plant = winners.plant + 1;
         games = games + 1;
         clearInterval(int);
@@ -155,7 +155,7 @@ function SetMapInterval() {
 
     if (!mapRefreshState) {
 
-        int = setInterval(RefreshMap, 2);
+        int = setInterval(RefreshMap, 1);
 
     }
 
@@ -202,7 +202,7 @@ legend =
 
 let world = new LifelikeWorld(map, legend);
 
-window.setInterval(()=>world.born(),3000)
+window.setInterval(()=>world.born(),300);
 
 function Game(map, legend) {
 

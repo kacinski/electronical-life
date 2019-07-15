@@ -122,6 +122,18 @@ World.prototype.checkDestination = function(action, vector){
       }
 };
 
+World.prototype.born = function () {
+    this.grid.set(new Vector(3, 4),
+        elementFromChar(this.legend, "Ö"));
+    this.grid.set(new Vector(31, 43),
+        elementFromChar(this.legend, "K"));
+    this.grid.set(new Vector(30, 40),
+        elementFromChar(this.legend, "*"));
+    this.grid.set(new Vector(31, 41),
+        elementFromChar(this.legend, "*"));
+
+}
+
 //View
 
 function View(world, vector){
@@ -156,6 +168,8 @@ View.prototype.find = function(ch){
 //Lifelike World
 function LifelikeWorld(map, legend){
   World.call(this, map, legend);
+   // World.born
+
 }
 
 LifelikeWorld.prototype = Object.create(World.prototype);

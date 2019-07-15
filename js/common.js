@@ -102,7 +102,8 @@ function RefreshMap(index) {
         winners.plant = winners.plant + 1;
         games = games + 1;
         clearInterval(int);
-        let plantWin = confirm(`The game ended in victory of Plant! With a score: Plant: ${winners.plant} VS Animals: ${winners.animals}.
+        let plantWin = confirm(`The game ended in victory of Plant!
+         With a score: Plant: ${winners.plant} VS Animals: ${winners.animals}.
      Start new game?`);
 
         if(plantWin === true){
@@ -120,7 +121,8 @@ function RefreshMap(index) {
         winners.animals = winners.animals + 1;
         games = games + 1;
         clearInterval(int);
-        let animalsWin = confirm(`The game ended in victory of Animals! With a score: Plant: ${winners.plant} VS Animals: ${winners.animals}.
+        let animalsWin = confirm(`The game ended in victory of Animals!
+         With a score: Plant: ${winners.plant} VS Animals: ${winners.animals}.
      Start new game?`);
         if(animalsWin){
             new Game(map, legend);
@@ -139,6 +141,12 @@ function RefreshMap(index) {
         document.getElementById("winnerAnimals").innerHTML = winners.animals.toString();
         document.getElementById("games").innerHTML = games.toString();
     }
+
+    document.getElementById("world").onclick = function(e){
+
+        console.log(e)
+    }
+
 }
 
 
@@ -194,6 +202,7 @@ legend =
 
 let world = new LifelikeWorld(map, legend);
 
+window.setInterval(()=>world.born(),3000)
 
 function Game(map, legend) {
 

@@ -122,17 +122,12 @@ World.prototype.checkDestination = function(action, vector){
       }
 };
 
-World.prototype.born = function () {
-    this.grid.set(new Vector(3, 4),
-        elementFromChar(this.legend, "Ö"));
-    this.grid.set(new Vector(31, 16),
-        elementFromChar(this.legend, "K"));
-    this.grid.set(new Vector(30, 16),
-        elementFromChar(this.legend, "*"));
-    this.grid.set(new Vector(31, 16),
-        elementFromChar(this.legend, "*"));
+World.prototype.born = function (x,y, ch) {
+    this.grid.set(new Vector(x, y),
+        elementFromChar(this.legend, ch));
 
-}
+
+};
 
 //View
 

@@ -3,11 +3,14 @@ const winners = {
     "animals": 0
 };
 let games = 0;
-
+let activeAnimal = "*";
 /* Refresh map - controls */
 
-
+function wrapper(char) {
+    return `<div>${char}</div>`
+}
 function RefreshMap(index) {
+
    this.index = index;
     ++steps;
     world.turn();
@@ -98,7 +101,7 @@ function RefreshMap(index) {
 
 
 
-    if (rabbit === null && kangaroo === null && snake === null) {
+    if (rabbit === null && kangaroo === null) {
         winners.plant = winners.plant + 1;
         games = games + 1;
         clearInterval(int);
@@ -108,8 +111,7 @@ function RefreshMap(index) {
 
         if(plantWin === true){
             new Game(map, legend);
-        }
-        if(confirm === false){
+        }else{
             window.location.reload();
         }
 
@@ -141,11 +143,32 @@ function RefreshMap(index) {
         document.getElementById("winnerAnimals").innerHTML = winners.animals.toString();
         document.getElementById("games").innerHTML = games.toString();
     }
+    document.onkeydown = function(e) {
 
-    document.getElementById("world").onclick = function(e){
+        let x = e.charCode || e.keyCode;
+        let y = String.fromCharCode(x);
 
-        console.log(e)
+        if (y === "R")
+            activeAnimal = "o";
+        if(y === "K")
+            activeAnimal = "K";
+        if(y === "S")
+            activeAnimal = "Ö";
+        if(y==="P")
+            activeAnimal = "*";
+        if(y==="W")
+            activeAnimal = "#";
     }
+
+   document.getElementById("world").onclick = function(e){
+       let x1= Math.ceil((e.offsetX/21)-1);
+       let y1 = Math.ceil((e.offsetY/21)-1);
+        world.born(x1, y1, activeAnimal);
+       console.log(e, x1, y1)
+    };
+
+
+
 
 }
 
@@ -155,22 +178,22 @@ function SetMapInterval() {
 
     if (!mapRefreshState) {
 
-        int = setInterval(RefreshMap, 1);
+        int = setInterval(RefreshMap, 100);
 
     }
 
     mapRefreshState = true;
-};
+}
 
 
-/*Start world*/
+/*Start world*/ // play size = 67x22
 
 map =
-    ["#####################################################################",
-        "#                  ***         ****                          *****#*#",
-        "#   *Ö ##            ####       ########      ########   o   ****#*##",
-        "#   *  ##    o        ##        ########    o ##    ##   **  K ***#*#",
-        "#      ##  *          ##        ##            ##         Ö     *****#",
+       ["#####################################################################",
+        "#  #               ***         ****                          *****# #",
+        "#  #*Ö ##            ####       ########      ########   o   ****## #",
+        "#  #*  ##    o        ##        ########    o ##    ##   **  K ***# #",
+        "#  #   ##  *          ##        ##            ##         Ö     ***# #",
         "#      ##  ***  * K   ## **     #####         #####            *****#",
         "#* **  ##   *  ***    ##        #####   Ö     ##                 ***#",
         "#* **  ######## *     ##        ##          * ##    ## Ö          **#",
@@ -186,9 +209,9 @@ map =
         "#***  ##            ##       ##       #####      ##  Ö    #####     #",
         "#**    ##    ##    ##      ##  ##     ## * ##    ##       ## * ##   #",
         "#*     ##    ##    ##  K  ## ** ##    ## * ##    ##       ## *  ##  #",
-        "#  K     ##  ##  ##       ##   ##     ######     ##   ##  ##   ##   #",
-        "#         ########    **   ####   **  ##   ##    ######   ######    #",
-        "#                     **          **                                #",
+        "# #K     ##  ##  ##       ##   ##     ######     ##   ##  ##   ## # #",
+        "# #       ########    **   ####   **  ##   ##    ######   ######  # #",
+        "# #                   **          **                              # #",
         "#####################################################################"];
 
 legend =
@@ -202,7 +225,7 @@ legend =
 
 let world = new LifelikeWorld(map, legend);
 
-window.setInterval(()=>world.born(),300);
+
 
 function Game(map, legend) {
 
@@ -224,5 +247,6 @@ function Game(map, legend) {
 function OneStep (){
    new RefreshMap(true);
 }
+
 
 

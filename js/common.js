@@ -4,11 +4,10 @@ const winners = {
 };
 let games = 0;
 let activeAnimal = "*";
+let action, inter;
 /* Refresh map - controls */
 
-function wrapper(char) {
-    return `<div>${char}</div>`
-}
+
 function RefreshMap(index) {
 
    this.index = index;
@@ -72,13 +71,11 @@ function RefreshMap(index) {
         }
     }
 
-
     let kangaroo = world
         .toString()
         .match(/K/g);
     new Count("Kangaroo", kangaroo);
     new MaxCount("maxKangaroo", kangaroo);
-
 
     let snake = world
         .toString()
@@ -97,8 +94,6 @@ function RefreshMap(index) {
         .match(/\*/g);
     new Count("Plant", plant);
     new MaxCount("maxPlant", plant);
-
-
 
 
     if (rabbit === null && kangaroo === null) {
@@ -143,48 +138,52 @@ function RefreshMap(index) {
         document.getElementById("winnerAnimals").innerHTML = winners.animals.toString();
         document.getElementById("games").innerHTML = games.toString();
     }
-    document.onkeydown = function(e) {
-
-        let x = e.charCode || e.keyCode;
-        let y = String.fromCharCode(x);
-
-        if (y === "R")
-            activeAnimal = "o";
-        if(y === "K")
-            activeAnimal = "K";
-        if(y === "S")
-            activeAnimal = "Ö";
-        if(y==="P")
-            activeAnimal = "*";
-        if(y==="W")
-            activeAnimal = "#";
-    }
-
-   document.getElementById("world").onclick = function(e){
-       let x1= Math.ceil((e.offsetX/21)-1);
-       let y1 = Math.ceil((e.offsetY/21)-1);
-        world.born(x1, y1, activeAnimal);
-       console.log(e, x1, y1)
-    };
-
-
-
-
 }
+document.onkeydown = function(e) {
+
+    let x = e.charCode || e.keyCode;
+    let y = String.fromCharCode(x);
+
+    if (y === "R")
+        activeAnimal = "o";
+    if(y === "K")
+        activeAnimal = "K";
+    if(y === "S")
+        activeAnimal = "Ö";
+    if(y==="P")
+        activeAnimal = "*";
+    if(y==="W")
+        activeAnimal = "#";
+};
+
+document.getElementById("world").onmousedown = function(e){
+    console.log(e);
+    action = true;
+    click(e);
+    inter = setInterval(click, 100, e);
 
 
+};
+
+document.getElementById("world").onmouseup = function(){
+    action = false;
+    clearInterval(inter);
+};
+
+document.getElementById("world").onmousemove = function(e) {
+
+    if(action)
+        click(e);
+};
 
 function SetMapInterval() {
 
     if (!mapRefreshState) {
 
-        int = setInterval(RefreshMap, 100);
-
+        int = setInterval(RefreshMap, 1000);
     }
-
     mapRefreshState = true;
 }
-
 
 /*Start world*/ // play size = 67x22
 
@@ -225,8 +224,6 @@ legend =
 
 let world = new LifelikeWorld(map, legend);
 
-
-
 function Game(map, legend) {
 
     mapRefreshState = false;
@@ -241,12 +238,15 @@ function Game(map, legend) {
     world = new LifelikeWorld(map, legend);
 
     SetMapInterval();
-
 }
 
 function OneStep (){
    new RefreshMap(true);
 }
 
-
+function click(e){
+    let x1= Math.ceil((e.offsetX/21)-1);
+    let y1 = Math.ceil((e.offsetY/21)-1);
+    world.born(x1, y1, activeAnimal);
+}
 

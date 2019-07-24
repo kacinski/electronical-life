@@ -157,7 +157,7 @@ document.onkeydown = function(e) {
 };
 
 document.getElementById("world").onmousedown = function(e){
-    console.log(e);
+    // console.log(e);
     action = true;
     click(e);
     inter = setInterval(click, 100, e);
@@ -165,7 +165,7 @@ document.getElementById("world").onmousedown = function(e){
 
 };
 
-document.getElementById("world").onmouseup = function(){
+document.onmouseup = function(){
     action = false;
     clearInterval(inter);
 };
@@ -175,43 +175,57 @@ document.getElementById("world").onmousemove = function(e) {
     if(action)
         click(e);
 };
+document.getElementById("world").onmouseleave = function() {
+    action = false;
+    clearInterval(inter);
+}
+
+function click(e){
+    let x1= (Math.ceil(e.offsetX/21)-1);
+    let y1 = (Math.round(e.offsetY/18)-1);
+    console.log(`e.offsetX = ${e.offsetX} ; e.offsetY = ${e.offsetY}`);
+    console.log(`x1 = ${x1} ; y1 = ${y1}`);
+    console.log("---------")
+    world.born(x1, y1, activeAnimal);
+}
 
 function SetMapInterval() {
 
     if (!mapRefreshState) {
 
-        int = setInterval(RefreshMap, 1000);
+        int = setInterval(RefreshMap, 100);
     }
     mapRefreshState = true;
 }
 
-/*Start world*/ // play size = 67x22
+/*Start world*/ // play size = 68x25
 
 map =
-       ["#####################################################################",
-        "#  #               ***         ****                          *****# #",
-        "#  #*Ö ##            ####       ########      ########   o   ****## #",
-        "#  #*  ##    o        ##        ########    o ##    ##   **  K ***# #",
-        "#  #   ##  *          ##        ##            ##         Ö     ***# #",
-        "#      ##  ***  * K   ## **     #####         #####            *****#",
-        "#* **  ##   *  ***    ##        #####   Ö     ##                 ***#",
-        "#* **  ######## *     ##        ##          * ##    ## Ö          **#",
-        "#      ########      ####       ## o     ***  ########              #",
-        "#*            Ö                   *        o                        #",
-        "#*          ##      ##  ***                   ##     ##         K   #",
-        "#######     ##      ##  ***          ***         ##                 #",
-        "#****##   o ##      ##                           ## o         **    #",
-        "#****##         ##      ##                ***##       ##            #",
-        "#****##*        ##      ##   K      *       o ### **### ***         #",
-        "##***##*  o   o ## ***  ##   ***  ***           #####     ****     o#",
-        "##***      ***     ***      *****            **        **           #",
-        "#***  ##            ##       ##       #####      ##  Ö    #####     #",
-        "#**    ##    ##    ##      ##  ##     ## * ##    ##       ## * ##   #",
-        "#*     ##    ##    ##  K  ## ** ##    ## * ##    ##       ## *  ##  #",
-        "# #K     ##  ##  ##       ##   ##     ######     ##   ##  ##   ## # #",
-        "# #       ########    **   ####   **  ##   ##    ######   ######  # #",
-        "# #                   **          **                              # #",
-        "#####################################################################"];
+       ["######################################################################",
+        "#  #               ***         ****                           *****# #",
+        "#  #*Ö ##            ####       ########      ########   o    ****## #",
+        "#  #*  ##    o        ##        ########    o ##    ##   **   K ***# #",
+        "#  #   ##  *          ##        ##            ##         Ö      ***# #",
+        "#      ##  ***  * K   ## **     #####         #####             *****#",
+        "#* **  ##   *  ***    ##        #####   Ö     ##                  ***#",
+        "#* **  ######## *     ##        ##          * ##    ## Ö           **#",
+        "#      ########      ####       ## o     ***  ########               #",
+        "#*            Ö                   *        o                         #",
+        "#*          ##      ##  ***                   ##     ##         K    #",
+        "#######     ##      ##  ***          ***         ##                  #",
+        "#****##   o ##      ##                           ## o         **     #",
+        "#****##         ##      ##                ***##       ##             #",
+        "#****##*        ##      ##   K      *       o ### **### ***          #",
+        "##***##*  o   o ## ***  ##   ***  ***           #####     ****      o#",
+        "##***      ***     ***      *****            **        **            #",
+        "#***  ##            ##       ##       #####      ##  Ö    #####      #",
+        "#**    ##    ##    ##      ##  ##     ## * ##    ##       ## * ##    #",
+        "#*     ##    ##    ##  K  ## ** ##    ## * ##    ##       ## *  ##   #",
+        "# #K     ##  ##  ##       ##   ##     ######     ##   ##  ##   ## #  #",
+        "# #       ########    **   ####   **  ##   ##    ######   ######  #  #",
+        "# #                   **          **                              #  #",
+        "# #                   **          **                              #  #",
+        "######################################################################"];
 
 legend =
     {
@@ -244,9 +258,5 @@ function OneStep (){
    new RefreshMap(true);
 }
 
-function click(e){
-    let x1= Math.ceil((e.offsetX/21)-1);
-    let y1 = Math.ceil((e.offsetY/21)-1);
-    world.born(x1, y1, activeAnimal);
-}
+
 

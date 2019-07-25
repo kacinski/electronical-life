@@ -1,47 +1,55 @@
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Electronic life</title>
-	<link rel="stylesheet" href="./css/style.css">
+    <meta charset="UTF-8">
+    <title>Electronic life</title>
+    <link rel="stylesheet" href="./css/style.css">
 
 </head>
 <body>
-	<div class="info">
-		<h1>Electronic life</h1>
-		<button onclick="new Game(map, legend)">New game</button>
-		<button onclick="clearInterval(int); mapRefreshState = false">Stop</button>
-		<button onclick="SetMapInterval()">Resume</button>
-		<button onclick="OneStep()">Turn</button>
+<div class="info">
+    <h1>Electronic life</h1>
+    <button onclick="new Game(map, legend)">New game</button>
+    <button onclick="clearInterval(int); mapRefreshState = false">Stop</button>
+    <button onclick="SetMapInterval()">Resume</button>
+    <button onclick="OneStep()">Turn</button>
 
 
-	</div>
-	<pre>
-		<div><h1>Winners:</h1>
-Plant:   <b id = "winnerPlant"></b>        Games: <b id="games"></b>
-Animals: <b id = "winnerAnimals"></b>
+</div>
+<pre>
+		<div>
+            <h1>Winners:</h1>
+Plant:   <b id="winnerPlant"></b>        Games: <b id="games"></b>
+Animals: <b id="winnerAnimals"></b>
 		</div>
-		<div><b style = color:red>  Steps =</b><b id="steps"></b></div>
-		<div><b style = color:orange>    Kangaroo =</b><b id="Kangaroo"></b><b style = color:greenyellow>     Plant =</b><b id="Plant"></b><b style = color:darkgreen>    Snake =</b><b id="Snake"></b><b style= color:dimgrey>          Rabbit =</b><b id="Rabbit"></b>
+		<div><b style=color:red>  Steps =</b><b id="steps"></b></div>
+		<div><b style=color:orange>    Kangaroo =</b><b id="Kangaroo"></b><b style=color:greenyellow>     Plant =</b><b
+                id="Plant"></b><b style=color:darkgreen>    Snake =</b><b id="Snake"></b><b style=color:dimgrey>          Rabbit =</b><b
+                id="Rabbit"></b>
 		</div>
-		<div><b style = color:orange>Max Kangaroo =</b><b id="maxKangaroo"></b><b style = color:greenyellow>  Max Plant =</b><b id="maxPlant"></b><b style = color:darkgreen>   Max Snake =</b><b id="maxSnake"></b><b style= color:dimgrey>   Max Rabbit =</b><b id="maxRabbit"></b>
+		<div><b style=color:orange>Max Kangaroo =</b><b id="maxKangaroo"></b><b
+                style=color:greenyellow>  Max Plant =</b><b id="maxPlant"></b><b
+                style=color:darkgreen>   Max Snake =</b><b id="maxSnake"></b><b
+                style=color:dimgrey>   Max Rabbit =</b><b id="maxRabbit"></b>
 		</div>
 	</pre>
-	<pre>
-<div id="world"></div>
-    </pre>
-    <div>
-    	<ul>
-			<li>For add anything to map with click, press:</li>
-    		<li><img src="./pictures/W.png" width="30" height="20"> - ⬛ Wall</li>
-    		<li><img src="./pictures/R.png" width="30" height="20"> - 🐰 Rabbit (eat plants)</li>
-			<li><img src="./pictures/K.png" width="30" height="20"> - 🦘 Kangoo (eat plants)</li>
-    		<li><img src="./pictures/s.png" width="30" height="20"> - 🐍  Snake (eat the plant-eaters)</li>
-    		<li><img src="./pictures/P.png" width="30" height="20"> - 🌽  Plant (reproduce / give energy)</li>
-    	</ul>
-    </div>
+<!--<pre>-->
+<!--    <div id="world"></div>-->
+<!--    </pre>-->
+<canvas id="canvas" width="1800" height="800" class="playable-canvas"></canvas>
+<div>
+    <ul>
+        <li>For add anything to map with click, press:</li>
+        <li><img src="./pictures/W.png" width="30" height="20"> - ⬛ Wall</li>
+        <li><img src="./pictures/R.png" width="30" height="20"> - 🐰 Rabbit (eat plants)</li>
+        <li><img src="./pictures/K.png" width="30" height="20"> - 🦘 Kangoo (eat plants)</li>
+        <li><img src="./pictures/s.png" width="30" height="20"> - 🐍 Snake (eat the plant-eaters)</li>
+        <li><img src="./pictures/P.png" width="30" height="20"> - 🌽 Plant (reproduce / give energy)</li>
+    </ul>
+</div>
 
-    <script type="text/javascript" src="js/world.js"></script>
-    <script type="text/javascript" src="js/entities.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/canvas.js"></script>
+<script type="text/javascript" src="js/world.js"></script>
+<script type="text/javascript" src="js/entities.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 </body>
 </html>

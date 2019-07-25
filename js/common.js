@@ -13,14 +13,14 @@ function RefreshMap(index) {
    this.index = index;
     ++steps;
     world.turn();
-    document.getElementById("world").innerHTML = world
-        .toString()
-        .replace(new RegExp(" ", "g"), "🌫")
-        .replace(new RegExp("#", "g"), "⬛️")
-        .replace(new RegExp("\\*", "g"), "🌽")
-        .replace(new RegExp("o", "g"), "🐰")
-        .replace(new RegExp("K", "g"), "🦘")
-        .replace(new RegExp("Ö", "g"), "🐍");
+    canva.map(world
+        .toString())
+        // .replace(new RegExp(" ", "g"), "🌫")
+        // .replace(new RegExp("#", "g"), "⬛️")
+        // .replace(new RegExp("\\*", "g"), "🌽")
+        // .replace(new RegExp("o", "g"), "🐰")
+        // .replace(new RegExp("K", "g"), "🦘")
+        // .replace(new RegExp("Ö", "g"), "🐍"))
 
 
     function Count(id, result) {
@@ -156,37 +156,38 @@ document.onkeydown = function(e) {
         activeAnimal = "#";
 };
 
-document.getElementById("world").onmousedown = function(e){
+document.getElementById("canvas").onmousedown = function(e){
     // console.log(e);
-    action = true;
+    // action = true;
     click(e);
-    inter = setInterval(click, 100, e);
+    // inter = setInterval(click, 100, e);
 
 
 };
 
-document.onmouseup = function(){
-    action = false;
-    clearInterval(inter);
-};
-
-document.getElementById("world").onmousemove = function(e) {
-
-    if(action)
-        click(e);
-};
-document.getElementById("world").onmouseleave = function() {
-    action = false;
-    clearInterval(inter);
-}
+// document.onmouseup = function(){
+//     action = false;
+//     clearInterval(inter);
+// };
+//
+// document.getElementById("world").onmousemove = function(e) {
+//
+//     if(action)
+//         click(e);
+// };
+// document.getElementById("world").onmouseleave = function() {
+//     action = false;
+//     clearInterval(inter);
+// }
 
 function click(e){
-    let x1= (Math.ceil(e.offsetX/21)-1);
-    let y1 = (Math.round(e.offsetY/18)-1);
+    let x1= (Math.ceil(e.offsetX/20)-1);
+    let y1 = (Math.ceil(e.offsetY/20)-1);
     console.log(`e.offsetX = ${e.offsetX} ; e.offsetY = ${e.offsetY}`);
     console.log(`x1 = ${x1} ; y1 = ${y1}`);
     console.log("---------")
     world.born(x1, y1, activeAnimal);
+    canva.draw(e.offsetX, e.offsetY)
 }
 
 function SetMapInterval() {
